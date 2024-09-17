@@ -1,0 +1,27 @@
+{
+  "name": "vidly",
+  "version": "1.0.0",
+  "description": "## Description A simple [Express.js](https://expressjs.com/)app. An exercise form [The Complete Node.js Course](https://codewithmosh.com/p/the-complete-node-js-course) by Mosh.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jurgenizer/node-vidly.git"
+  },
+  "keywords": [
+    "Express",
+    "node"
+  ],
+  "author": "Jurgen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jurgenizer/node-vidly/issues"
+  },
+  "homepage": "https://github.com/jurgenizer/node-vidly#readme",
+  "dependencies": {
+    "express": "^4.21.0",
+    "joi": "^17.13.3"
+  }
+}
