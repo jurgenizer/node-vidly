@@ -31,13 +31,12 @@ function validateGenre(genre) {
 
 // GET all the video genres
 app.get('/api/genres', (req, res) => {
-
     res.send(genres);
 });
 
 
 // GET a single video genre
-app.get('/api/genres/:id', (req, res) =>{
+app.get('/api/genres/:id', (req, res) => {
     const genre = genres.find(genre => genre.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send('The video genre with the requested ID was not found');
     //console.log(genre);
@@ -59,9 +58,9 @@ app.post('/api/genres', (req, res) => {
     res.send(genre);
 })
 
-// PUT a single video genre update (update the genre)
+// PUT a single video genre (update the genre)
 app.put('/api/genres/:id', (req, res) => {
-    // Lookup the course
+    // Lookup the genre
     const genre = genres.find(genre => genre.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send('The video genre with the requested ID was not found');
 
@@ -72,13 +71,27 @@ app.put('/api/genres/:id', (req, res) => {
         res.status(400).send(error.details[0].message);
         return;
     }
-     // Update the genre
-     genre.name = req.body.name;
+    // Update the genre
+    genre.name = req.body.name;
 
     //Return the updated genre
     res.send(genre);
 })
 
+// DELETE a single video genre 
+app.delete('/api/genres/:id', (req, res) => {
+    // Lookup the genre
+    const genre = genres.find(genre => genre.id === parseInt(req.params.id));
+    // console.log('The genre to be deleted is ', genre);
+    if (!genre) return res.status(404).send('The video genre with the requested ID was not found');
+
+    // Delete 
+    const index = genres.indexOf(genre);
+    genres.splice(index, 1);
+
+    // Return deleted genre
+    res.send(genre);
+})
 
 
 //Read port Variable from environment or default to 3000
