@@ -1,6 +1,6 @@
 require("dotenv").config();
 const Joi = require('joi');
-const express  = require('express');
+const express = require('express');
 const app = express();
 app.use(express.json());
 
@@ -20,6 +20,15 @@ const genres = [
     { id: 11, name: 'mystery' },
     { id: 12, name: 'musical' }
 ]
+
+//  Validate with Joi
+function validateGenre(genre) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    })
+    return schema.validate(genre);
+}
+
 // GET all the video genres
 app.get('/api/genres', (req, res) => {
     res.send(genres);
@@ -28,6 +37,10 @@ app.get('/api/genres', (req, res) => {
 
 // POST a new genre (create a new genre and return the genre object)
 app.post('/api/genres', (req, res) => {
+    //validateGenre() with object destructuring to get error property
+    const { error } = validateGenre(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     const genre = {
         id: genres.length + 1,
         name: req.body.name
