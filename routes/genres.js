@@ -1,7 +1,22 @@
 // http://vidly.comn/api/genres
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+
+// Schema
+const genreSchema = new Mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 50,
+    }
+});
+
+// Model
+const Genre = new mongoose.model('Genre', genreSchema);
+
 
 const genres = [
     { id: 1, name: 'comedy' },
