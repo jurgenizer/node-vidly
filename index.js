@@ -1,4 +1,5 @@
 //const config = require('config');
+const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
 const config = require("dotenv").config();
 const morgan = require('morgan');
@@ -8,6 +9,11 @@ const genres = require('./routes/genres');
 const express = require('express');
 const app = express();
 app.use(express.json());
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/vidly')
+.then(() => console.log('Connected to MongoDB...'))
+.catch(err => console.error('Could not connect to MongoDB...'))
 
 // Third-part middleware
 app.use(helmet());
