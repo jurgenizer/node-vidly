@@ -19,8 +19,9 @@ function validateGenre(genre) {
     const schema = Joi.object({
         name: Joi.string().min(2).max(50).required()
     })
-    return schema.validate(genre);
+    return schema.validate(genre, schema);
 }
 
 exports.Genre = Genre; // short version of module.exports.Customer = Customer;
 exports.validate = validateGenre;
+exports.genreSchema = genreSchema;

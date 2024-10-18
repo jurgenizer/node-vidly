@@ -17,7 +17,7 @@ const customerSchema =  mongoose.Schema({
         type: String,
         required: true,
         minlength: 8,
-        maxlength: 50,
+        maxlength: 50
     }
 });
 
@@ -31,7 +31,7 @@ function validateCustomer(customer) {
         isGold: Joi.boolean(),
         phone: Joi.string().min(8).max(50).required(),
     })
-    return schema.validate(customer);
+    return schema.validate(customer, schema);
 }
 
 exports.Customer = Customer; // short version of module.exports.Customer = Customer;
