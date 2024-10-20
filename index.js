@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
+const rentals = require('./routes/rentals');
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -21,8 +22,9 @@ app.use(helmet());
 
 // For any route that starts with /api/genres we use the genres router object)
 app.use('/api/genres', genres);
-
 app.use('/api/customers', customers);
+app.use('/api/movies', movies);
+app.use('/api/rentals', rentals);
 
 
 // Middleware 
