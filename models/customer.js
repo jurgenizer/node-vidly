@@ -31,7 +31,7 @@ function validateCustomer(customer) {
         isGold: Joi.boolean(),
         phone: Joi.string().min(8).max(50).required(),
     })
-    return schema.validate(customer, schema);
+    return schema.validate(customer);
 }
 
 exports.Customer = Customer; // short version of module.exports.Customer = Customer;

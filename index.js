@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
+const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const express = require('express');
 const app = express();

@@ -1,10 +1,9 @@
 // http://vidly.comn/api/rentals
 const express = require('express');
 const router = express.Router();
-const { Movie } = require('../models/movie')
-const { Customer } = require('../models/customer')
-const { Rental, validate } = require('../models/rental')
-
+const { Movie } = require('../models/movie');
+const { Customer } = require('../models/customer');
+const { Rental, validate } = require('../models/rental');
 
 // GET all the rentals
 router.get('/', async (req, res) => {
@@ -36,24 +35,22 @@ router.post('/', async (req, res) => {
 
     if (movie.numberInStock === 0) return res.status(400).send('Movie not in stock.');
 
-    let rental = new Rental({ 
+    let rental = new Rental({
         customer: {
             _id: customer._id,
-            name: customer.name, 
+            name: customer.name,
             phone: customer.phone
-          },
-          movie: {
+        },
+        movie: {
             _id: movie._id,
             title: movie.title,
             dailyRentalRate: movie.dailyRentalRate
-          }
-      });
-      rental = await rental.save();
-
-  movie.numberInStock--;
-  movie.save();
-
-    res.send(rental);
+        }
+    });
+rental = await rental.save();
+movie.numberInStock--;
+movie.save();
+res.send(rental);
 });
 
 module.exports = router;
