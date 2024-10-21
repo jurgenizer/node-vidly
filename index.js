@@ -1,9 +1,12 @@
-//const config = require('config');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+
 const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
 const config = require("dotenv").config();
 const morgan = require('morgan');
 const helmet = require('helmet');
+
 const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
