@@ -4,6 +4,7 @@ const router = express.Router();
 const { Movie } = require('../models/movie');
 const { Customer } = require('../models/customer');
 const { Rental, validate } = require('../models/rental');
+const { default: mongoose } = require('mongoose');
 
 // GET all the rentals
 router.get('/', async (req, res) => {
