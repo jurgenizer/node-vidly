@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const express = require('express');
@@ -26,7 +27,7 @@ function validate(req) {
         password: Joi.string().min(5).max(255).required(),
     });
     
-    return schema.validate(user);
+    return schema.validate(req);
 }
 
 
