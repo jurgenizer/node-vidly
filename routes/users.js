@@ -1,4 +1,5 @@
 // http://vidly.comn/api/users
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const { User, validate } = require('../models/user')
@@ -13,15 +14,18 @@ router.post('/', async (req, res) => {
   
     //reset the user object
 
-    user = new User({
+    /* user = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
-    })
+    }) */
+// or using lodash
+
+        user = new User(_.pick(req.body, ['name', 'email', 'password']))
 
     await user.save();
 
-    res.send(user);
+    res.send(_.pick(user, ['name', 'email']));
 });
 
 module.exports = router;
