@@ -1,9 +1,9 @@
+//const config = require("config");
+const config = require("dotenv").config();
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
-
 const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
-const config = require("dotenv").config();
 const morgan = require('morgan');
 const helmet = require('helmet');
 const logger = require('./middleware/logger');
@@ -16,6 +16,19 @@ const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
 app.use(express.json());
+
+console.info(process.env.vidly_jwtPrivateKey);
+
+if (!process.env.vidly_jwtPrivateKey){
+    console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+    process.exit(1);
+} 
+
+/* if (!config.get('jwtPrivateKey')){
+    console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+    process.exit(1);
+}  */
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/vidly')
@@ -33,13 +46,6 @@ app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 
-
-// Middleware 
-if (app.get('env') === 'development'){
-    app.use(morgan('tiny'));
-    //console.log('Morgan enabled...');
-    debug('Morgan enabled...');
-}
 
 // Custom third-part middleware by me :)
 app.use(logger);
