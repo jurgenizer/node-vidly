@@ -1,4 +1,5 @@
 // http://vidly.comn/api/users
+const auth = require('../middleware/auth');
 const config = require("config");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -6,6 +7,12 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const { User, validate } = require('../models/user')
+
+// GET user
+router.get('/me',auth, async (req, res) => {
+    const user =  await User.findById(req.user._id).select(-password);
+    res.send(user);
+});
 
 // POST to create a user
 router.post('/', async (req, res) => {
