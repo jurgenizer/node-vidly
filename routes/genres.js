@@ -1,4 +1,5 @@
 // http://vidly.comn/api/genres
+const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const { Genre, validate } = require('../models/genre')
@@ -20,7 +21,8 @@ router.get('/:id', async (req, res) => {
 })
 
 // POST a new genre (create a new genre and return the genre object)
-router.post('/', async (req, res) => {
+// Note auth middleware
+router.post('/', auth, async (req, res) => {
     // validate() with object destructuring to get error property
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
