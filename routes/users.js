@@ -1,6 +1,7 @@
 // http://vidly.comn/api/users
 const auth = require('../middleware/auth');
-const config = require("config");
+//const config = require("config");
+const config = require("dotenv").config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');

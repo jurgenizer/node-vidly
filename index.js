@@ -17,7 +17,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-console.info(process.env.vidly_jwtPrivateKey);
+//console.info(process.env.vidly_jwtPrivateKey);
 
 if (!process.env.vidly_jwtPrivateKey){
     console.error('FATAL ERROR: jwtPrivateKey is not defined.');
