@@ -1,5 +1,6 @@
 // http://vidly.comn/api/genres
 const auth = require('../middleware/auth');
+const admin = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const { Genre, validate } = require('../models/genre')
@@ -47,7 +48,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE a single video genre 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',[auth, admin], async (req, res) => {
     const genre = await Genre.findByIdAndDelete(req.params.id);
 
     // console.log('The genre to be deleted is ', genre);
