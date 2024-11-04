@@ -6,9 +6,15 @@ const router = express.Router();
 const { Genre, validate } = require('../models/genre')
 
 // GET all the video genres
-router.get('/', async (req, res) => {
-    const genres = await Genre.find().sort('name');
-    res.send(genres);
+router.get('/', async (req, res, next) => {
+
+    try {
+        const genres = await Genre.find().sort('name');
+        res.send(genres);
+    } catch (ex) {
+        next(ex);
+    }
+
 });
 
 
@@ -48,7 +54,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE a single video genre 
-router.delete('/:id',[auth, admin], async (req, res) => {
+router.delete('/:id', [auth, admin], async (req, res) => {
     const genre = await Genre.findByIdAndDelete(req.params.id);
 
     // console.log('The genre to be deleted is ', genre);

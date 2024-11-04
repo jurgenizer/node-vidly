@@ -1,3 +1,4 @@
+const error = require('./middleware/error');
 //const config = require("config");
 const config = require("dotenv").config();
 const Joi = require('joi');
@@ -6,7 +7,6 @@ const mongoose = require('mongoose');
 const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const logger = require('./middleware/logger');
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
 const movies = require('./routes/movies');
@@ -15,9 +15,9 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const app = express();
-app.use(express.json());
 
-//console.info(process.env.vidly_jwtPrivateKey);
+
+
 
 if (!process.env.vidly_jwtPrivateKey){
     console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -36,6 +36,7 @@ mongoose.connect('mongodb://localhost/vidly')
 .catch(err => console.error('Could not connect to MongoDB...'))
 
 // Third-part middleware
+app.use(express.json());
 app.use(helmet());
 
 // For any route that starts with /api/genres we use the genres router object)
@@ -46,9 +47,8 @@ app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 
-
-// Custom third-part middleware by me :)
-app.use(logger);
+// Passing a reference to the error handling middleware function
+app.use (error);
 
 
 //Read port Variable from environment or default to 3000
